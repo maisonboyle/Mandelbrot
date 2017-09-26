@@ -36,7 +36,6 @@
 				float Ycent;
 				float Zoom;
 				int Iterations;
-
 				vertOutput vert(vertInput input)
 				{
 					vertOutput o;
@@ -47,6 +46,8 @@
 
 				half4 frag(vertOutput output) : COLOR
 				{
+				//	float cx = (float)((int)((Xcent + (output.uv.x - 0.5)/Zoom)*200))/200;
+				//	float cy = (float)((int)((Ycent + (output.uv.y - 0.5)*9/16/Zoom)*200))/200;
 					float cx = Xcent + (output.uv.x - 0.5)/Zoom;
 					float cy = Ycent + (output.uv.y - 0.5)*9/16/Zoom;
 					float x = cx;
