@@ -10,14 +10,8 @@ public class Menu : MonoBehaviour {
 	public InputField Ycent;
 	public InputField Zoom;
 	public InputField Iterations;
-	public Renderer rend;
 
 	public void Start(){
-		rend = GetComponent<Renderer> ();
-		rend.material.SetFloat ("Xcent", 0.27f);
-		rend.material.SetFloat ("Ycent", 0.0065f);
-		rend.material.SetFloat ("Zoom", 200.0f);
-		rend.material.SetFloat ("Iterations", 250.0f);
 		Xcent.text = PlayerPrefs.GetFloat ("Xcent").ToString();
 		Ycent.text = PlayerPrefs.GetFloat ("Ycent").ToString();
 		Zoom.text = PlayerPrefs.GetFloat ("Zoom").ToString();
