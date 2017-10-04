@@ -51,8 +51,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\mandelbrot.cs" />
-     <Compile Include="Assets\Menu.cs" />
+     <Compile Include="Assets\scripts\mandelbrot.cs" />
+     <Compile Include="Assets\scripts\MandelGraphics.cs" />
+     <Compile Include="Assets\scripts\Menu.cs" />
+     <Compile Include="Assets\scripts\MenuBackground.cs" />
+     <Compile Include="Assets\scripts\subDisplay.cs" />
      <Compile Include="Assets\TerrainGen\Code\controlMandelbrot.cs" />
      <None Include="Assets\TerrainGen\Materials\Shader\Mandelbrot.shader" />
      <None Include="Assets\mandelbrot shader.shader" />

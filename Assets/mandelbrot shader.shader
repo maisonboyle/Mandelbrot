@@ -50,14 +50,20 @@
 				//	float cy = (float)((int)((Ycent + (output.uv.y - 0.5)*9/16/Zoom)*200))/200;
 					float cx = Xcent + (output.uv.x - 0.5)/Zoom;
 					float cy = Ycent + (output.uv.y - 0.5)*9/16/Zoom;
+					float p = (cx - 0.25)*(cx - 0.25) + cy*cy;
+					if ((cx+1)*(cx+1)+cy*cy<0.0625 || p*(p+(cx-0.25))<0.25*cy*cy){
+						return half4(0,0,0,1);
+					}
 					float x = cx;
 					float y = cy;
 					float temp;
+
 					for (float i = 0; i<Iterations; i++){
 						temp = cx + x*x - y*y;
 						y = cy + 2*x*y;
 						x = temp;
 						if (x*x+y*y>4){
+							// colouring Scheme
 							float n = i/Iterations;
 							if (n>0.5){
 								return half4(1,n,n,1);

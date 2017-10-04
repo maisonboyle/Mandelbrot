@@ -1,10 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\mandelbrot.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\MandelGraphics.cs">
     <Files>
-      <File FileName="Assets\mandelbrot shader.shader" Line="1" Column="1" />
-      <File FileName="Assets\mandelbrot.cs" Line="78" Column="77" />
-      <File FileName="Assets\Menu.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\subDisplay.cs" Line="2105" Column="124" />
+      <File FileName="Assets\scripts\MandelGraphics.cs" Line="2115" Column="80" />
+      <File FileName="Assets\scripts\mandelbrot.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\Menu.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

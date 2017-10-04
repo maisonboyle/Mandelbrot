@@ -5,45 +5,59 @@ using UnityEngine.SceneManagement;
 
 public class mandelbrot : MonoBehaviour {
 
-	public Renderer rend;
-	public Camera cam;
 	private float xCent;
 	private float yCent;
 	private float zoom;
 	private float iterations;
-	private CameraClearFlags clearFlags;
-	private int cullingMask;
 	private float preTouch;
 
+	public GameObject HighRes;
+	public GameObject LowRes;
+	public subDisplay disp1;
+	public subDisplay disp2;
+	public subDisplay disp3;
+	public subDisplay disp4;
+	public subDisplay disp5;
+	public subDisplay disp6;
+	public subDisplay disp7;
+	public subDisplay disp8;
+	public MandelGraphics PoorQual;
+
+
 	public void Start(){
+		
 		xCent = PlayerPrefs.GetFloat ("Xcent");
 		yCent = PlayerPrefs.GetFloat ("Ycent");
 		zoom = PlayerPrefs.GetFloat ("Zoom");
 		iterations = PlayerPrefs.GetFloat ("Iterations");
 		preTouch = zoom;
-		rend = GetComponent<Renderer> ();
-		rend.material.SetFloat ("Xcent", xCent);
-		rend.material.SetFloat ("Ycent", yCent);
-		rend.material.SetFloat ("Zoom", zoom);
-		rend.material.SetFloat ("Iterations", iterations);
-		clearFlags = cam.clearFlags;
-		cullingMask = cam.cullingMask;
-		Invoke ("Freeze", 0.1f);
+		HighQuality ();
 	}
-
-	private void Freeze(){
-		cam.clearFlags =  CameraClearFlags.Nothing;
-		cam.cullingMask = 0;
-	}
-
-	public void UnFreeze(){
-		cam.clearFlags = clearFlags;
-		cam.cullingMask = cullingMask;
-	}
-
+		
 	public void Back(){
 		SceneManager.LoadScene ("menu");
 	}
+
+	public void LowQuality(){
+		PoorQual.Draw (xCent, yCent, zoom, iterations);
+		HighRes.SetActive (false);
+		LowRes.SetActive (true);
+	}
+
+	public void HighQuality(){
+		disp1.Draw (xCent, yCent, zoom, iterations);
+		disp2.Draw (xCent, yCent, zoom, iterations);
+		disp3.Draw (xCent, yCent, zoom, iterations);
+		disp4.Draw (xCent, yCent, zoom, iterations);
+		disp5.Draw (xCent, yCent, zoom, iterations);
+		disp6.Draw (xCent, yCent, zoom, iterations);
+		disp7.Draw (xCent, yCent, zoom, iterations);
+		disp8.Draw (xCent, yCent, zoom, iterations);
+		HighRes.SetActive (true);
+		LowRes.SetActive (false);
+	}
+
+
 
 	public float zoomRate = 850f;
 
@@ -68,38 +82,33 @@ public class mandelbrot : MonoBehaviour {
 			float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
 			// Find the difference in the distances between each frame.
-			deltaMagnitudeDiff += (touchDeltaMag - prevTouchDeltaMag) / 1000;
+			deltaMagnitudeDiff += (touchDeltaMag - prevTouchDeltaMag) / 750;
 
 			// ... change the size based on the change in distance between the touches.
-			zoom = preTouch * Mathf.Pow (2.0f, deltaMagnitudeDiff);
-			//	Debug.Log (zoom);
-			rend.material.SetFloat ("Zoom", zoom);
-			rend.material.SetFloat ("Iterations", 80.0f);
 			Vector2 touchDelta = (touchZero.deltaPosition + touchOne.deltaPosition)/2;
 			xCent -= touchDelta.x / (2000*zoom);
 			yCent -= touchDelta.y / (2000*zoom);
-			rend.material.SetFloat ("Xcent", xCent);
-			rend.material.SetFloat ("Ycent", yCent);
-			UnFreeze ();
+			zoom = preTouch * Mathf.Pow (2.0f, deltaMagnitudeDiff);
+
+			LowQuality ();
 
 		} else if (Input.touchCount == 1){
 			touches = true;
 			Vector2 touchDelta = Input.GetTouch (0).deltaPosition;
 			xCent -= touchDelta.x / (2000*zoom);
 			yCent -= touchDelta.y / (2000*zoom);
-			rend.material.SetFloat ("Xcent", xCent);
-			rend.material.SetFloat ("Ycent", yCent);
-			rend.material.SetFloat ("Iterations", 50.0f);
-			UnFreeze ();
+
+			LowQuality ();
 
 
 		} else if (Input.touchCount == 0 && touches) {
 			touches = false;
-			rend.material.SetFloat ("Iterations", iterations);
-			Invoke ("Freeze", 0.1f);
+			HighQuality ();
 			preTouch = zoom;
 			deltaMagnitudeDiff = 0;
-
+			PlayerPrefs.SetFloat ("Xcent",xCent);
+			PlayerPrefs.SetFloat ("Ycent", yCent);
+			PlayerPrefs.SetFloat ("Zoom", zoom);
 		}
 	}
 
